@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import { StyleSheet, Platform } from "react-native";
 
 const LoginScreen = ({ navigation }) => {
   const [phoneEmail, setPhoneEmail] = useState("");
@@ -14,11 +20,28 @@ const LoginScreen = ({ navigation }) => {
     { label: "Tenant", value: "tenant" },
   ];
 
+  // Function to validate email or phone
+  const validateEmailOrPhone = (input) => {
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    const phoneRegex = /^[0-9]{10,15}$/; // Allow only numbers with a typical phone length
+    return emailRegex.test(input) || phoneRegex.test(input);
+  };
+
   const handleLogin = () => {
     let newErrors = {};
 
-    if (!phoneEmail) newErrors.phoneEmail = "Please fill out this form";
-    if (!password) newErrors.password = "Please fill out this form";
+    if (!phoneEmail) {
+      newErrors.phoneEmail = "Please fill out this form";
+    } else if (!validateEmailOrPhone(phoneEmail)) {
+      newErrors.phoneEmail = "Please enter a valid email or phone number";
+    }
+
+    if (!password) {
+      newErrors.password = "Please fill out this form";
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
     if (!selectedRole) newErrors.selectedRole = "Please fill out this form";
 
     setErrors(newErrors);
@@ -28,6 +51,12 @@ const LoginScreen = ({ navigation }) => {
       console.log("Password:", password);
       console.log("Role:", selectedRole);
       console.log("Logging in...");
+
+      if (selectedRole === "tenant") {
+        navigation.navigate("Home");
+      } else {
+        console.log("Role is not tenant, additional logic needed.");
+      }
     }
   };
 
