@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// src/Screen/ProfileScreen/ProfileScreen.jsx
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,11 +9,10 @@ import {
   Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/Ionicons";
+import BottomNavigation from "../../Components/BottomNavigation";
 
-const ProfileScreen = () => {
-  const navigation = useNavigation();
+const ProfileScreen = ({ navigation }) => {
   const [profileData, setProfileData] = useState({
     name: "czsdczx",
     age: "21",
@@ -79,9 +79,14 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Icon name="arrow-back" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
         <Text style={styles.headerText}>Profile</Text>
       </View>
-
       <View style={styles.contentContainer}>
         <View style={styles.profileSection}>
           <Image
@@ -96,12 +101,11 @@ const ProfileScreen = () => {
             {profileData.age} | {profileData.gender}
           </Text>
         </View>
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>ACCOUNT</Text>
           <TouchableOpacity style={styles.option} onPress={handleEditProfile}>
             <View style={styles.optionContent}>
-              <Ionicons
+              <Icon
                 name="pencil-outline"
                 size={20}
                 color="#333"
@@ -116,7 +120,7 @@ const ProfileScreen = () => {
             onPress={handleChangePassword}
           >
             <View style={styles.optionContent}>
-              <Ionicons
+              <Icon
                 name="lock-closed-outline"
                 size={20}
                 color="#333"
@@ -128,7 +132,7 @@ const ProfileScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={handleSettings}>
             <View style={styles.optionContent}>
-              <Ionicons
+              <Icon
                 name="settings-outline"
                 size={20}
                 color="#333"
@@ -143,7 +147,7 @@ const ProfileScreen = () => {
             onPress={handleAboutUs}
           >
             <View style={styles.optionContent}>
-              <Ionicons
+              <Icon
                 name="information-circle-outline"
                 size={20}
                 color="#333"
@@ -154,57 +158,11 @@ const ProfileScreen = () => {
             <Text style={styles.arrow}>›</Text>
           </TouchableOpacity>
         </View>
-
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
       </View>
-
-      <BottomNavigation />
-    </View>
-  );
-};
-
-const BottomNavigation = () => {
-  const navigation = useNavigation();
-
-  return (
-    <View style={styles.footer}>
-      <TouchableOpacity
-        style={styles.navButton}
-        onPress={() => navigation.navigate("Home")}
-      >
-        <Ionicons name="home-outline" size={24} style={[styles.navIcon]} />
-        <Text style={styles.navLabel}>Home</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.navButton}
-        onPress={() => navigation.navigate("Search")}
-      >
-        <Ionicons name="search-outline" size={24} style={styles.navIcon} />
-        <Text style={styles.navLabel}>Search</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.navButton}
-        onPress={() => navigation.navigate("Saved")}
-      >
-        <Ionicons name="bookmark-outline" size={24} style={styles.navIcon} />
-        <Text style={styles.navLabel}>Saved</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.navButton}
-        onPress={() => navigation.navigate("Profile")}
-      >
-        <Ionicons
-          name="person-outline"
-          size={24}
-          style={[styles.navIcon, styles.activeNavIcon]}
-        />
-        <Text style={styles.navLabel}>Profile</Text>
-      </TouchableOpacity>
+      <BottomNavigation navigation={navigation} />
     </View>
   );
 };
@@ -217,12 +175,15 @@ const styles = StyleSheet.create({
   header: {
     height: 80,
     backgroundColor: "#6A8DB5",
-    justifyContent: "center",
+    flexDirection: "row",
     alignItems: "center",
     borderBottomColor: "#E0E0E0",
     borderBottomWidth: 1,
     paddingTop: 40,
     paddingHorizontal: 10,
+  },
+  backButton: {
+    marginRight: 10,
   },
   headerText: {
     color: "#FFFFFF",
@@ -314,28 +275,6 @@ const styles = StyleSheet.create({
     color: "#007AFF",
     fontSize: 16,
     fontWeight: "bold",
-  },
-  footer: {
-    height: 50,
-    backgroundColor: "#fff",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    borderTopColor: "#E0E0E0",
-    borderTopWidth: 1,
-  },
-  navButton: {
-    alignItems: "center",
-  },
-  navIcon: {
-    color: "#000",
-  },
-  activeNavIcon: {
-    color: "green",
-  },
-  navLabel: {
-    fontSize: 14,
-    color: "#5f5d5d",
   },
 });
 

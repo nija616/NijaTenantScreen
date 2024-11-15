@@ -1,3 +1,4 @@
+// src/Screen/SearchScreen/SearchScreen.jsx
 import React, { useState } from "react";
 import {
   View,
@@ -10,6 +11,7 @@ import {
   Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import BottomNavigation from "../../Components/BottomNavigation";
 
 const SearchScreen = ({ navigation }) => {
   const [keyword, setKeyword] = useState("");
@@ -44,12 +46,14 @@ const SearchScreen = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-back" size={24} color="#000" />
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Icon name="arrow-back" size={24} color="#FFFFFF" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Search By</Text>
       </View>
-
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Property Types</Text>
@@ -75,7 +79,6 @@ const SearchScreen = ({ navigation }) => {
             ))}
           </View>
         </View>
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Location</Text>
           <TouchableOpacity
@@ -104,7 +107,6 @@ const SearchScreen = ({ navigation }) => {
             </View>
           )}
         </View>
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Area</Text>
           <View style={styles.inputContainer}>
@@ -116,7 +118,6 @@ const SearchScreen = ({ navigation }) => {
             />
           </View>
         </View>
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Keyword</Text>
           <View style={styles.inputContainer}>
@@ -128,7 +129,6 @@ const SearchScreen = ({ navigation }) => {
             />
           </View>
         </View>
-
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.resetButton}
@@ -144,32 +144,7 @@ const SearchScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      {/* Footer/Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Icon name="home-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Icon name="search-outline" size={24} style={styles.activeNavIcon} />
-          <Text style={styles.navLabel}>Search</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate("Saved")}
-        >
-          <Icon name="bookmark-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Saved</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Icon name="person-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Profile</Text>
-        </TouchableOpacity>
-      </View>
+      <BottomNavigation navigation={navigation} />
     </KeyboardAvoidingView>
   );
 };
@@ -180,18 +155,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#dde5ef",
   },
   header: {
+    height: 80,
+    backgroundColor: "#6A8DB5",
     flexDirection: "row",
     alignItems: "center",
-    padding: 15,
-    backgroundColor: "#6A8DB5",
+    borderBottomColor: "#E0E0E0",
+    borderBottomWidth: 1,
     paddingTop: 40,
+    paddingHorizontal: 10,
+  },
+  backButton: {
+    marginRight: 10,
   },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: "400",
     color: "#FFFFFF",
-    marginLeft: 10,
-    paddingTop: 3,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   scrollContent: {
     paddingBottom: 70,
@@ -280,26 +259,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: "#fff",
-  },
-  bottomNav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    height: 51,
-  },
-  navButton: {
-    alignItems: "center",
-  },
-  navIcon: {
-    color: "#000",
-  },
-  activeNavIcon: {
-    color: "green",
-  },
-  navLabel: {
-    fontSize: 14,
-    color: "#5f5d5d",
   },
 });
 

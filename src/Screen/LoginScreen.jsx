@@ -20,10 +20,9 @@ const LoginScreen = ({ navigation }) => {
     { label: "Tenant", value: "tenant" },
   ];
 
-  // Function to validate email or phone
   const validateEmailOrPhone = (input) => {
     const emailRegex = /^\S+@\S+\.\S+$/;
-    const phoneRegex = /^[0-9]{10,15}$/; // Allow only numbers with a typical phone length
+    const phoneRegex = /^[0-9]{10,15}$/;
     return emailRegex.test(input) || phoneRegex.test(input);
   };
 
@@ -53,9 +52,9 @@ const LoginScreen = ({ navigation }) => {
       console.log("Logging in...");
 
       if (selectedRole === "tenant") {
-        navigation.navigate("Home");
-      } else {
-        console.log("Role is not tenant, additional logic needed.");
+        navigation.navigate("TenantHome"); // navigate to tenant home screen
+      } else if (selectedRole === "landlord") {
+        navigation.navigate("LandlordHome"); // future navigation for landlord
       }
     }
   };
@@ -223,7 +222,9 @@ export const pickerSelectStyles = StyleSheet.create({
     paddingRight: 30,
   },
   iconContainer: {
-    top: Platform.OS === "android" ? 10 : 15,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
     right: 20,
   },
 });

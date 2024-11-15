@@ -1,3 +1,4 @@
+// src/Screen/SearchScreen/ResultsScreen.jsx
 import React, { useState } from "react";
 import {
   View,
@@ -9,6 +10,7 @@ import {
   Linking,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import BottomNavigation from "../../Components/BottomNavigation";
 
 const ResultsScreen = ({ route, navigation, onSaveSearch }) => {
   const { keyword, selectedType, selectedLocation, area } = route.params || {};
@@ -60,10 +62,6 @@ const ResultsScreen = ({ route, navigation, onSaveSearch }) => {
     setSortVisible(!sortVisible);
   };
 
-  const toggleMenuVisibility = () => {
-    setMenuVisible(!menuVisible);
-  };
-
   const saveSearch = () => {
     console.log("Save Search clicked");
     if (onSaveSearch) {
@@ -96,8 +94,11 @@ const ResultsScreen = ({ route, navigation, onSaveSearch }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-back" size={24} color="#000" />
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Icon name="arrow-back" size={24} color="#FFFFFF" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Search Results</Text>
         <View style={styles.headerIcons}>
@@ -105,16 +106,12 @@ const ResultsScreen = ({ route, navigation, onSaveSearch }) => {
             <Icon
               name="map-outline"
               size={24}
-              color="#000"
+              color="#FFFFFF"
               style={styles.iconSpacing}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleMenuVisibility}>
-            <Icon name="ellipsis-vertical" size={24} color="#000" />
-          </TouchableOpacity>
         </View>
       </View>
-
       <View style={styles.filtersContainer}>
         <View style={styles.filter}>
           <Icon name="home-outline" size={16} color="#456f96" />
@@ -133,17 +130,15 @@ const ResultsScreen = ({ route, navigation, onSaveSearch }) => {
           <Text style={styles.filterText}>{keyword}</Text>
         </View>
       </View>
-
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.resultsHeader}>
           <Text style={styles.resultsTitle}>
-            {listings.length} Results - Showing ‘{selectedSort}’
+            {listings.length} Results - Showing '{selectedSort}'
           </Text>
           <TouchableOpacity onPress={toggleSortVisibility}>
             <Icon name="filter-outline" size={24} color="#000" />
           </TouchableOpacity>
         </View>
-
         {listings.map((listing) => (
           <TouchableOpacity
             key={listing.id}
@@ -174,7 +169,6 @@ const ResultsScreen = ({ route, navigation, onSaveSearch }) => {
           </TouchableOpacity>
         ))}
       </ScrollView>
-
       {sortVisible && (
         <View style={styles.sortContainer}>
           <Text style={styles.sortHeader}>Sort by</Text>
@@ -200,7 +194,6 @@ const ResultsScreen = ({ route, navigation, onSaveSearch }) => {
           )}
         </View>
       )}
-
       {menuVisible && (
         <View style={styles.saveSearchContainer}>
           <TouchableOpacity
@@ -212,31 +205,7 @@ const ResultsScreen = ({ route, navigation, onSaveSearch }) => {
           </TouchableOpacity>
         </View>
       )}
-
-      <View style={styles.bottomNav}>
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Icon name="home-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Icon name="search-outline" size={24} style={styles.activeNavIcon} />
-          <Text style={styles.navLabel}>Search</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate("Saved")}
-        >
-          <Icon name="bookmark-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Saved</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Icon name="person-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Profile</Text>
-        </TouchableOpacity>
-      </View>
+      <BottomNavigation navigation={navigation} />
     </View>
   );
 };
@@ -247,22 +216,28 @@ const styles = StyleSheet.create({
     backgroundColor: "#dde5ef",
   },
   header: {
+    height: 80,
+    backgroundColor: "#6A8DB5",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    padding: 15,
-    backgroundColor: "#6A8DB5",
+    borderBottomColor: "#E0E0E0",
+    borderBottomWidth: 1,
     paddingTop: 40,
+    paddingHorizontal: 10,
+  },
+  backButton: {
+    marginRight: 10,
   },
   headerTitle: {
+    color: "#FFFFFF",
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FFFFFF",
-    paddingTop: 4,
+    marginLeft: 10,
   },
   headerIcons: {
     flexDirection: "row",
     alignItems: "center",
+    marginLeft: "auto",
   },
   iconSpacing: {
     marginRight: 15,
@@ -300,6 +275,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     borderRadius: 10,
+    marginHorizontal: 15,
     marginBottom: 15,
     padding: 10,
   },
@@ -382,26 +358,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 14,
     color: "#152946",
-  },
-  bottomNav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    height: 51,
-  },
-  navButton: {
-    alignItems: "center",
-  },
-  navIcon: {
-    color: "#000",
-  },
-  activeNavIcon: {
-    color: "green",
-  },
-  navLabel: {
-    fontSize: 14,
-    color: "#5f5d5d",
   },
 });
 

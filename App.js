@@ -1,17 +1,17 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginScreen from "./src/LoginScreen";
-import SignUpScreen from "./src/SignUpScreen";
-import ResetPassword from "./src/ResetPassword";
-import OTPVerification from "./src/OTPVerification";
-import NewPassword from "./src/NewPassword";
-import HomeScreen from "./src/HomeScreen";
-import PropertyDetailScreen from "./src/PropertyDetailScreen";
-import SearchScreen from "./src/SearchScreen";
-import ResultsScreen from "./src/ResultsScreen";
-import SavedScreen from "./src/SavedScreen";
-import ProfileScreen from "./src/ProfileScreen";
+import LoginScreen from "./src/Screen/LoginScreen";
+import SignUpScreen from "./src/Screen/SignUpScreen";
+import ResetPassword from "./src/Screen/ResetPassword";
+import OTPVerification from "./src/Screen/OTPVerification";
+import NewPassword from "./src/Screen/NewPassword";
+import HomeScreen from "./src/Screen/TenantHomeScreen/HomeScreen";
+import PropertyDetailScreen from "./src/Screen/PropertyScreen/PropertyDetailScreen";
+import SearchScreen from "./src/Screen/SearchScreen/SearchScreen";
+import ResultsScreen from "./src/Screen/SearchScreen/ResultsScreen";
+import FavoriteScreen from "./src/Screen/FavoriteScreen/FavoriteScreen";
+import ProfileScreen from "./src/Screen/ProfileScreen/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -45,7 +45,7 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Home"
+          name="TenantHome"
           component={HomeScreen}
           options={{ headerShown: false }}
         />
@@ -65,8 +65,8 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Saved"
-          component={SavedScreen}
+          name="Favorites"
+          component={FavoriteScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

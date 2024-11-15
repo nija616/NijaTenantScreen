@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 const PropertyDetailScreen = ({ navigation, route }) => {
   const { image, title, location, price, availability } = route.params;
-  const contactNumber = "9841229813";
+  const contactNumber = "9862259947";
 
   const [isFavorite, setIsFavorite] = useState(false);
 

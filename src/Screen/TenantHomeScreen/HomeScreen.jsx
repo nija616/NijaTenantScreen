@@ -1,3 +1,4 @@
+// src/Screen/TenantHomeScreen/HomeScreen.jsx
 import React from "react";
 import {
   View,
@@ -11,6 +12,7 @@ import {
   Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import BottomNavigation from "../../Components/BottomNavigation"; // Ensure this path is correct
 
 const HomeScreen = ({ navigation }) => {
   const roomData = [
@@ -116,48 +118,6 @@ const HomeScreen = ({ navigation }) => {
     );
   };
 
-  const BottomNavigation = () => {
-    return (
-      <View style={styles.bottomNav}>
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Icon
-            name="home-outline"
-            size={24}
-            style={[styles.navIcon, styles.activeNavIcon]}
-          />
-          <Text style={styles.navLabel}>Home</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate("Search")}
-        >
-          <Icon name="search-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Search</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate("Saved")}
-        >
-          <Icon name="bookmark-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Saved</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate("Profile")}
-        >
-          <Icon name="person-outline" size={24} style={styles.navIcon} />
-          <Text style={styles.navLabel}>Profile</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -167,7 +127,7 @@ const HomeScreen = ({ navigation }) => {
       <SearchBar />
       <View style={styles.accommodationHeader}>
         <Text style={styles.accommodationTitle}>Accommodations nearby</Text>
-        <Text style={styles.seeAll}>See All {">"}</Text>
+        {/* <Text style={styles.seeAll}>See All {">"}</Text> */}
       </View>
       <ScrollView style={styles.scrollView}>
         {roomData.map((room, index) => (
@@ -305,30 +265,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: "#000",
-  },
-  bottomNav: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    height: 51,
-  },
-  navButton: {
-    alignItems: "center",
-  },
-  navIcon: {
-    color: "#000",
-  },
-  activeNavIcon: {
-    color: "green",
-  },
-  navLabel: {
-    fontSize: 14,
-    color: "#5f5d5d",
   },
 });
 

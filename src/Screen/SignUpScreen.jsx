@@ -5,7 +5,6 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Alert,
   Platform,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
@@ -39,7 +38,7 @@ const SignUpScreen = ({ navigation }) => {
 
     if (Object.keys(newErrors).length === 0) {
       console.log("Signed up successfully!");
-      navigation.navigate("Login"); // Navigate back to login after signing up
+      navigation.navigate("Login");
     }
   };
 
@@ -102,23 +101,22 @@ const SignUpScreen = ({ navigation }) => {
           }}
           style={pickerSelectStyles}
           useNativeAndroidPickerStyle={false}
-          Icon={() => {
-            return (
-              <View
-              //   style={{
-              //     backgroundColor: "transparent",
-              //     borderTopWidth: 5,
-              //     borderTopColor: "#2D5DA7",
-              //     borderRightWidth: 5,
-              //     borderRightColor: "transparent",
-              //     borderLeftWidth: 5,
-              //     borderLeftColor: "transparent",
-              //     width: 0,
-              //     height: 0,
-              //   }}
-              />
-            );
-          }}
+          Icon={() => (
+            <View
+              style={{
+                backgroundColor: "transparent",
+                borderTopWidth: 5,
+                borderTopColor: "#2D5DA7",
+                borderRightWidth: 5,
+                borderRightColor: "transparent",
+                borderLeftWidth: 5,
+                borderLeftColor: "transparent",
+                width: 0,
+                height: 0,
+                marginTop: Platform.OS === "android" ? 5 : 20,
+              }}
+            />
+          )}
         />
       </View>
       {errors.role && <Text style={styles.error}>{errors.role}</Text>}
@@ -166,12 +164,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   pickerWrapper: {
-    width: "100%", // Match the width of the other inputs
+    width: "100%",
     borderColor: "#2D5DA7",
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 15,
     backgroundColor: "#fff",
+    zIndex: 10, // Set a higher zIndex
   },
   signupButton: {
     width: "60%",
@@ -205,18 +204,18 @@ const pickerSelectStyles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     color: "#2D5DA7",
-    paddingRight: 30, // Ensure the text is not behind the icon
+    paddingRight: 30, // To ensure the text is not behind the icon
   },
   inputIOS: {
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 12,
     color: "#2D5DA7",
-    paddingRight: 30, // Ensure the text is not behind the icon
+    paddingRight: 30, // To ensure the text is not behind the icon
   },
   iconContainer: {
     top: Platform.OS === "android" ? 10 : 15,
-    right: 20, // Positioned inside the input
+    right: 10,
   },
 });
 

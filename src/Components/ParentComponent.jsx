@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import ResultsScreen from "./ResultsScreen"; // Adjust path as necessary
-import SavedScreen from "./SavedScreen"; // Adjust path as necessary
+import ResultsScreen from "../Screen/SearchScreen/ResultsScreen"; // Adjust path as necessary
+import SavedScreen from "../Screen/FavoriteScreen/FavoriteScreen"; // Adjust path as necessary
 
 const ParentComponent = () => {
   const [savedSearches, setSavedSearches] = useState([]);
