@@ -52,9 +52,9 @@ const LoginScreen = ({ navigation }) => {
       console.log("Logging in...");
 
       if (selectedRole === "tenant") {
-        navigation.navigate("TenantHome"); // navigate to tenant home screen
+        navigation.navigate("TenantHome");
       } else if (selectedRole === "landlord") {
-        navigation.navigate("LandlordHome"); // future navigation for landlord
+        navigation.navigate("LandlordHome");
       }
     }
   };
