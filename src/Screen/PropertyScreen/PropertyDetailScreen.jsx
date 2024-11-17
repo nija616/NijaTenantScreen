@@ -64,7 +64,11 @@ const PropertyDetailScreen = ({ navigation, route }) => {
         <Text style={styles.propertyInfo}>Property Owned By: Alok</Text>
         <Text
           style={styles.link}
-          onPress={() => Linking.openURL("https://www.google.com/maps")}
+          onPress={() =>
+            Linking.openURL(
+              "https://www.google.com/maps/place/Balkhu,+Kathmandu+44600/@27.686454,85.2938209,18z/data=!3m1!4b1!4m6!3m5!1s0x39eb18418484f5cb:0x47248c3878873e24!8m2!3d27.6862726!4d85.2948778!16s%2Fg%2F1tfk2vkp?entry=ttu&g_ep=EgoyMDI0MTExMy4xIKXMDSoASAFQAw%3D%3D"
+            )
+          }
         >
           View on Google Maps
         </Text>

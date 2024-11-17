@@ -54,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
       if (selectedRole === "tenant") {
         navigation.navigate("TenantHome");
       } else if (selectedRole === "landlord") {
-        navigation.navigate("LandlordHome");
+        navigation.navigate("Home");
       }
     }
   };
@@ -114,6 +114,18 @@ const LoginScreen = ({ navigation }) => {
         />
       </View>
 
+      <Text
+        style={[styles.link, { textDecorationLine: "underline" }]}
+        onPress={() => navigation.navigate("Lanlord")}
+      >
+        landlord
+      </Text>
+      <Text
+        style={[styles.link, { textDecorationLine: "underline" }]}
+        onPress={() => navigation.navigate("Tenant")}
+      >
+        Tenant
+      </Text>
       {errors.selectedRole && (
         <Text style={styles.error}>{errors.selectedRole}</Text>
       )}

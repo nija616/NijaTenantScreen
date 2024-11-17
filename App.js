@@ -12,6 +12,8 @@ import SearchScreen from "./src/Screen/SearchScreen/SearchScreen";
 import ResultsScreen from "./src/Screen/SearchScreen/ResultsScreen";
 import FavoriteScreen from "./src/Screen/FavoriteScreen/FavoriteScreen";
 import ProfileScreen from "./src/Screen/ProfileScreen/ProfileScreen";
+import Tenant from "./src/Screen/TenantHomeScreen/Tenant";
+import Landlord from "./src/Screen/TenantHomeScreen/Landlord";
 
 const Stack = createStackNavigator();
 
@@ -72,6 +74,16 @@ const App = () => {
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Lanlord"
+          component={Landlord}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Tenant"
+          component={Tenant}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
