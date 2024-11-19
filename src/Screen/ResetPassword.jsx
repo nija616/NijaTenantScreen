@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const ResetPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -28,14 +29,14 @@ const ResetPassword = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topBar}>
+      <View style={styles.header}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("OTPVerification")}
+          onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Text style={styles.backButtonText}>←</Text>
+          <Icon name="arrow-back" size={24} color="#FFFFFF" />
         </TouchableOpacity>
-        <Text style={styles.title}>Reset your password</Text>
+        <Text style={styles.headerText}>Reset your password</Text>
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.description}>
@@ -81,32 +82,23 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     alignItems: "center",
   },
-  topBar: {
+  header: {
+    height: 90,
+    backgroundColor: "#6A8DB5",
     flexDirection: "row",
     alignItems: "center",
-    height: 100,
-    backgroundColor: "#b7c8f4",
-    paddingHorizontal: 16,
-    paddingTop: 20,
-    paddingBottom: 18,
-    width: "100%",
+    borderBottomColor: "#E0E0E0",
+    borderBottomWidth: 1,
+    paddingTop: 40,
+    paddingHorizontal: 10,
   },
   backButton: {
-    position: "absolute",
-    left: 16,
+    marginRight: 10,
   },
-  backButtonText: {
-    fontSize: 24,
-    color: "#2c2c2c",
-    marginTop: 20,
-  },
-  title: {
+  headerText: {
+    color: "#FFFFFF",
     fontSize: 20,
-    fontWeight: "500",
-    color: "#2c2c2c",
-    textAlign: "center",
-    flex: 1,
-    marginTop: 25,
+    fontWeight: "bold",
   },
   description: {
     fontSize: 16,

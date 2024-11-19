@@ -10,10 +10,11 @@ import HomeScreen from "./src/Screen/TenantHomeScreen/HomeScreen";
 import PropertyDetailScreen from "./src/Screen/PropertyScreen/PropertyDetailScreen";
 import SearchScreen from "./src/Screen/SearchScreen/SearchScreen";
 import ResultsScreen from "./src/Screen/SearchScreen/ResultsScreen";
-import FavoriteScreen from "./src/Screen/FavoriteScreen/FavoriteScreen";
 import ProfileScreen from "./src/Screen/ProfileScreen/ProfileScreen";
-import Tenant from "./src/Screen/TenantHomeScreen/Tenant";
-import Landlord from "./src/Screen/TenantHomeScreen/Landlord";
+import AboutUsScreen from "./src/Screen/ProfileScreen/AboutUsScreen";
+import EditProfileScreen from "./src/Screen/ProfileScreen/EditProfileScreen";
+import PrivacyPolicyScreen from "./src/Screen/ProfileScreen/PrivacyPolicyScreen";
+import SettingsScreen from "./src/Screen/ProfileScreen/SettingsScreen";
 
 const Stack = createStackNavigator();
 
@@ -66,24 +67,30 @@ const App = () => {
           component={ResultsScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="Favorites"
-          component={FavoriteScreen}
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Lanlord"
-          component={Landlord}
+          name="EditProfile"
+          component={EditProfileScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Tenant"
-          component={Tenant}
+          name="Settings"
+          component={SettingsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AboutUs"
+          component={AboutUsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PrivacyPolicy"
+          component={PrivacyPolicyScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

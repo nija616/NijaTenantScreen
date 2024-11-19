@@ -1,11 +1,20 @@
-// src/Components/BottomNavigation.jsx
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const BottomNavigation = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const getIconColor = (routeName) => {
+    if (routeName === "Search") {
+      return route.name === "Search" || route.name === "Result"
+        ? "green"
+        : "#000";
+    }
+    return route.name === routeName ? "green" : "#000";
+  };
 
   return (
     <View style={styles.bottomNav}>
@@ -13,32 +22,42 @@ const BottomNavigation = () => {
         style={styles.navButton}
         onPress={() => navigation.navigate("TenantHome")}
       >
-        <Icon name="home-outline" size={24} style={styles.navIcon} />
-        <Text style={styles.navLabel}>Home</Text>
+        <Icon
+          name="home-outline"
+          size={24}
+          style={{ color: getIconColor("TenantHome") }}
+        />
+        <Text style={[styles.navLabel, { color: getIconColor("TenantHome") }]}>
+          Home
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.navButton}
         onPress={() => navigation.navigate("Search")}
       >
-        <Icon name="search-outline" size={24} style={styles.navIcon} />
-        <Text style={styles.navLabel}>Search</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.navButton}
-        onPress={() => navigation.navigate("Favorites")}
-      >
-        <Icon name="heart-outline" size={24} style={styles.navIcon} />
-        <Text style={styles.navLabel}>Favorites</Text>
+        <Icon
+          name="search-outline"
+          size={24}
+          style={{ color: getIconColor("Search") }}
+        />
+        <Text style={[styles.navLabel, { color: getIconColor("Search") }]}>
+          Search
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.navButton}
         onPress={() => navigation.navigate("Profile")}
       >
-        <Icon name="person-outline" size={24} style={styles.navIcon} />
-        <Text style={styles.navLabel}>Profile</Text>
+        <Icon
+          name="person-outline"
+          size={24}
+          style={{ color: getIconColor("Profile") }}
+        />
+        <Text style={[styles.navLabel, { color: getIconColor("Profile") }]}>
+          Profile
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -54,9 +73,6 @@ const styles = StyleSheet.create({
   },
   navButton: {
     alignItems: "center",
-  },
-  navIcon: {
-    color: "#000",
   },
   navLabel: {
     fontSize: 14,

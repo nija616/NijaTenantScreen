@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -13,12 +13,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 const PropertyDetailScreen = ({ navigation, route }) => {
   const { image, title, location, price, availability } = route.params;
   const contactNumber = "9862259947";
-
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const handleFavoritePress = () => {
-    setIsFavorite(!isFavorite);
-  };
 
   const handleContactPress = () => {
     const url = `whatsapp://send?phone=+977${contactNumber}&text=Hello, I am interested in your property.`;
@@ -40,18 +34,9 @@ const PropertyDetailScreen = ({ navigation, route }) => {
       </TouchableOpacity>
       <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.detailContainer}>
-        <View style={styles.header}>
-          <Text style={styles.title}>
-            {title} for Rent in Lalitpur, Ekantakuna
-          </Text>
-          <TouchableOpacity onPress={handleFavoritePress}>
-            <Icon
-              name={isFavorite ? "heart" : "heart-outline"}
-              size={24}
-              color={isFavorite ? "red" : "#000"}
-            />
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.title}>
+          {title} for Rent in Lalitpur, Ekantakuna
+        </Text>
         <Text style={styles.price}>{price} / per month</Text>
         <View style={styles.locationInfo}>
           <Icon name="location-outline" size={24} color="#000" />
@@ -64,11 +49,7 @@ const PropertyDetailScreen = ({ navigation, route }) => {
         <Text style={styles.propertyInfo}>Property Owned By: Alok</Text>
         <Text
           style={styles.link}
-          onPress={() =>
-            Linking.openURL(
-              "https://www.google.com/maps/place/Balkhu,+Kathmandu+44600/@27.686454,85.2938209,18z/data=!3m1!4b1!4m6!3m5!1s0x39eb18418484f5cb:0x47248c3878873e24!8m2!3d27.6862726!4d85.2948778!16s%2Fg%2F1tfk2vkp?entry=ttu&g_ep=EgoyMDI0MTExMy4xIKXMDSoASAFQAw%3D%3D"
-            )
-          }
+          onPress={() => Linking.openURL("https://www.google.com/maps")}
         >
           View on Google Maps
         </Text>
@@ -127,19 +108,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 1.41,
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
   title: {
     fontSize: 20,
     fontWeight: "400",
     color: "#1048b4",
     lineHeight: 28,
     opacity: 0.7,
-    flex: 1,
-    marginRight: 8,
+    marginBottom: 8,
   },
   price: {
     fontSize: 18,

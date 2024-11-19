@@ -216,14 +216,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#dde5ef",
   },
   header: {
-    height: 80,
+    height: 90,
     backgroundColor: "#6A8DB5",
     flexDirection: "row",
     alignItems: "center",
     borderBottomColor: "#E0E0E0",
     borderBottomWidth: 1,
     paddingTop: 40,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
   backButton: {
     marginRight: 10,

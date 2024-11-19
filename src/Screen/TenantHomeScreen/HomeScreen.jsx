@@ -1,18 +1,16 @@
-// src/Screen/TenantHomeScreen/HomeScreen.jsx
 import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  TextInput,
   TouchableOpacity,
   Image,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import BottomNavigation from "../../Components/BottomNavigation"; // Ensure this path is correct
+import BottomNavigation from "../../Components/BottomNavigation";
 
 const HomeScreen = ({ navigation }) => {
   const roomData = [
@@ -48,6 +46,38 @@ const HomeScreen = ({ navigation }) => {
       price: "Price = 7,000/Month",
       availability: "Booked",
     },
+    {
+      image:
+        "https://nepalhomesearch.com/wp-content/uploads/2023/06/Baluwatar-apartments-382.jpg",
+      title: "2BHK Apartment",
+      location: "Kathmandu, Baneshwor",
+      price: "Price = 15,000/Month",
+      availability: "Available",
+    },
+    {
+      image:
+        "https://nepalhomesearch.com/wp-content/uploads/2023/06/Baluwatar-apartments-382.jpg",
+      title: "Studio Apartment",
+      location: "Bhaktapur, Suryabinayak",
+      price: "Price = 10,000/Month",
+      availability: "Available",
+    },
+    {
+      image:
+        "https://nepalhomesearch.com/wp-content/uploads/2023/06/Baluwatar-apartments-382.jpg",
+      title: "3BHK House",
+      location: "Patan, Mangalbazar",
+      price: "Price = 20,000/Month",
+      availability: "Booked",
+    },
+    {
+      image:
+        "https://nepalhomesearch.com/wp-content/uploads/2023/06/Baluwatar-apartments-382.jpg",
+      title: "1 Room",
+      location: "Lalitpur, Pulchowk",
+      price: "Price = 6,000/Month",
+      availability: "Available",
+    },
   ];
 
   const HeaderBar = () => {
@@ -64,19 +94,6 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.city}>Lalitpur</Text>
           </View>
         </View>
-      </View>
-    );
-  };
-
-  const SearchBar = () => {
-    return (
-      <View style={styles.searchContainer}>
-        <Icon name="search" size={24} style={styles.searchIcon} />
-        <TextInput
-          placeholder="Search"
-          placeholderTextColor="#8f8e8e"
-          style={styles.searchInput}
-        />
       </View>
     );
   };
@@ -124,10 +141,9 @@ const HomeScreen = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <HeaderBar />
-      <SearchBar />
+      {/* Removed the SearchBar component */}
       <View style={styles.accommodationHeader}>
         <Text style={styles.accommodationTitle}>Accommodations nearby</Text>
-        {/* <Text style={styles.seeAll}>See All {">"}</Text> */}
       </View>
       <ScrollView style={styles.scrollView}>
         {roomData.map((room, index) => (
@@ -151,6 +167,9 @@ const styles = StyleSheet.create({
     height: 90,
     paddingHorizontal: 20,
     width: "100%",
+    position: "absolute",
+    top: 0,
+    zIndex: 1,
   },
   locationContainer: {
     flex: 1,
@@ -174,45 +193,23 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#FFFFFF",
   },
-  searchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    borderRadius: 60,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    margin: 10,
-    borderColor: "#8e8787",
-    borderWidth: 1,
-  },
-  searchIcon: {
-    marginRight: 10,
-    color: "#000",
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 14,
-    color: "#2D5DA7",
-  },
   accommodationHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 15,
     marginVertical: 10,
+    marginTop: 100,
   },
   accommodationTitle: {
     fontSize: 16,
     fontWeight: "400",
     color: "#000000",
   },
-  seeAll: {
-    fontSize: 14,
-    color: "#2D5DA7",
-  },
   scrollView: {
     flex: 1,
     paddingHorizontal: 15,
+    marginTop: 10,
   },
   cardContainer: {
     flexDirection: "row",

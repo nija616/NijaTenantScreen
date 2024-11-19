@@ -1,4 +1,3 @@
-// src/Screen/SearchScreen/SearchScreen.jsx
 import React, { useState } from "react";
 import {
   View,
@@ -15,14 +14,12 @@ import BottomNavigation from "../../Components/BottomNavigation";
 
 const SearchScreen = ({ navigation }) => {
   const [keyword, setKeyword] = useState("");
-  const [selectedType, setSelectedType] = useState("All");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [area, setArea] = useState("");
 
   const handleResetPress = () => {
     setKeyword("");
-    setSelectedType("All");
     setSelectedLocation("");
     setArea("");
     setShowDropdown(false);
@@ -31,13 +28,11 @@ const SearchScreen = ({ navigation }) => {
   const handleSearchPress = () => {
     navigation.navigate("Results", {
       keyword,
-      selectedType,
       selectedLocation,
       area,
     });
   };
 
-  const propertyTypes = ["All", "Flat", "Room"];
   const locations = ["Kathmandu", "Lalitpur", "Bhaktapur"];
 
   return (
@@ -55,30 +50,6 @@ const SearchScreen = ({ navigation }) => {
         <Text style={styles.headerTitle}>Search By</Text>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Property Types</Text>
-          <View style={styles.propertyTypeContainer}>
-            {propertyTypes.map((type) => (
-              <TouchableOpacity
-                key={type}
-                style={[
-                  styles.propertyType,
-                  selectedType === type && styles.selectedPropertyType,
-                ]}
-                onPress={() => setSelectedType(type)}
-              >
-                <Text
-                  style={[
-                    styles.propertyTypeText,
-                    selectedType === type ? styles.selectedText : styles.text,
-                  ]}
-                >
-                  {type}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Location</Text>
           <TouchableOpacity
@@ -155,14 +126,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#dde5ef",
   },
   header: {
-    height: 80,
+    height: 90,
     backgroundColor: "#6A8DB5",
     flexDirection: "row",
     alignItems: "center",
     borderBottomColor: "#E0E0E0",
     borderBottomWidth: 1,
     paddingTop: 40,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
   backButton: {
     marginRight: 10,
@@ -184,28 +155,6 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#456f96",
     marginBottom: 10,
-  },
-  propertyTypeContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  propertyType: {
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    borderRadius: 5,
-    backgroundColor: "#CCCCCC",
-  },
-  selectedPropertyType: {
-    backgroundColor: "#456f96",
-  },
-  propertyTypeText: {
-    fontSize: 16,
-  },
-  selectedText: {
-    color: "#fff",
-  },
-  text: {
-    color: "#000",
   },
   locationInput: {
     flexDirection: "row",

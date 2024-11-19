@@ -1,4 +1,3 @@
-// src/Screen/ProfileScreen/ProfileScreen.jsx
 import React, { useState } from "react";
 import {
   View,
@@ -47,10 +46,6 @@ const ProfileScreen = ({ navigation }) => {
 
   const handleEditProfile = () => {
     navigation.navigate("EditProfile");
-  };
-
-  const handleChangePassword = () => {
-    navigation.navigate("ChangePassword");
   };
 
   const handleSettings = () => {
@@ -115,21 +110,6 @@ const ProfileScreen = ({ navigation }) => {
             </View>
             <Text style={styles.arrow}>›</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={handleChangePassword}
-          >
-            <View style={styles.optionContent}>
-              <Icon
-                name="lock-closed-outline"
-                size={20}
-                color="#333"
-                style={styles.icon}
-              />
-              <Text style={styles.optionText}>Change Password</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={handleSettings}>
             <View style={styles.optionContent}>
               <Icon
@@ -173,14 +153,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   header: {
-    height: 80,
+    height: 90,
     backgroundColor: "#6A8DB5",
     flexDirection: "row",
     alignItems: "center",
     borderBottomColor: "#E0E0E0",
     borderBottomWidth: 1,
     paddingTop: 40,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
   backButton: {
     marginRight: 10,
