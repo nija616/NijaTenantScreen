@@ -13,6 +13,8 @@ import {
   Alert,
   Image,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import BottomNavigation from "../Components/BottomNavigation";
@@ -29,6 +31,7 @@ export default function AddPropertyScreen({ navigation }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Handle media upload
   const pickImage = async () => {
     let result = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (result.granted === false) {
@@ -63,119 +66,150 @@ export default function AddPropertyScreen({ navigation }) {
     setTypeModalVisible(!isTypeModalVisible);
   };
 
+  // Check if all required fields are filled
+  const isFormValid = propertyTitle && rentPrice && availability;
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/* Header with Back Button */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Icon name="arrow-back" size={24} color="#FFFFFF" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Add Property</Text>
-      </View>
-
-      {/* Scrollable Form Fields */}
-      <ScrollView contentContainerStyle={styles.formContainer}>
-        <Text style={styles.label}>Property Title*</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your property title"
-          value={propertyTitle}
-          onChangeText={setPropertyTitle}
-        />
-
-        <Text style={styles.label}>Description</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-        />
-
-        <Text style={styles.label}>Availability</Text>
-        <TouchableOpacity style={styles.input} onPress={toggleTypeModal}>
-          <Text>{availability || "Select"}</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.label}>Rent Price*</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter the price"
-          value={rentPrice}
-          onChangeText={handleRentPriceChange}
-          keyboardType="numeric"
-        />
-
-        <Text style={styles.label}>Location (URL)</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter the location URL"
-          value={location}
-          onChangeText={setLocation}
-          keyboardType="url"
-        />
-
-        <Text style={styles.label}>Select and Upload Media</Text>
-        <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
-          <Text style={styles.uploadText}>Upload Media</Text>
-        </TouchableOpacity>
-        {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : selectedImage ? (
-          <Image source={{ uri: selectedImage }} style={styles.uploadedImage} />
-        ) : null}
-
-        <View style={styles.consentContainer}>
-          <Switch value={isConsentChecked} onValueChange={setConsentChecked} />
-          <Text style={styles.consentText}>
-            I consent to having this website store my submitted information,
-            read more information.
-            {/* <Text style={styles.linkText}> GDPR Agreement</Text> */}
-          </Text>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        {/* Header with Back Button */}
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Icon name="arrow-back" size={24} color="#FFFFFF" />
+          </TouchableOpacity>
+          <Text style={styles.headerText}>Add Property</Text>
         </View>
-      </ScrollView>
 
-      <Modal visible={isTypeModalVisible} transparent={true}>
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalHeader}>Select Availability</Text>
-            <TouchableOpacity
-              onPress={() => {
-                setAvailability("Available");
-                toggleTypeModal();
-              }}
-            >
-              <Text style={styles.modalOption}>Available</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                setAvailability("Booked");
-                toggleTypeModal();
-              }}
-            >
-              <Text style={styles.modalOption}>Booked</Text>
-            </TouchableOpacity>
-            <Button title="Cancel" onPress={toggleTypeModal} />
+        {/* Scrollable Form Fields */}
+        <ScrollView contentContainerStyle={styles.formContainer}>
+          <Text style={styles.label}>Property Title*</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your property title"
+            value={propertyTitle}
+            onChangeText={setPropertyTitle}
+          />
+
+          <Text style={styles.label}>Description</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Description"
+            value={description}
+            onChangeText={setDescription}
+          />
+
+          <Text style={styles.label}>Availability*</Text>
+          <TouchableOpacity style={styles.input} onPress={toggleTypeModal}>
+            <Text>{availability || "Select"}</Text>
+          </TouchableOpacity>
+
+          <Text style={styles.label}>Rent Price*</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter the price"
+            value={rentPrice}
+            onChangeText={handleRentPriceChange}
+            keyboardType="numeric"
+          />
+
+          <Text style={styles.label}>Location (URL)</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter the location URL"
+            value={location}
+            onChangeText={setLocation}
+            keyboardType="url"
+          />
+
+          <Text style={styles.label}>Select and Upload Media</Text>
+          <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
+            <Text style={styles.uploadText}>Upload Media</Text>
+          </TouchableOpacity>
+          {loading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : selectedImage ? (
+            <Image
+              source={{ uri: selectedImage }}
+              style={styles.uploadedImage}
+            />
+          ) : null}
+
+          {/* Consent */}
+          <View style={styles.consentContainer}>
+            <Switch
+              value={isConsentChecked}
+              onValueChange={setConsentChecked}
+            />
+            <Text style={styles.consentText}>
+              I consent to having this website store my submitted information,
+              read more information.
+            </Text>
           </View>
-        </View>
-      </Modal>
+        </ScrollView>
 
-      <View style={styles.bottomButtonsContainer}>
-        <TouchableOpacity
-          style={styles.doneButton}
-          onPress={() =>
-            Alert.alert(
-              "Property Added",
-              "Your property has been added successfully!"
-            )
-          }
-        >
-          <Text style={styles.buttonText}>Done</Text>
-        </TouchableOpacity>
-      </View>
-      <BottomNavigation navigation={navigation} />
+        {/* Modal for Selecting Availability */}
+        <Modal visible={isTypeModalVisible} transparent={true}>
+          <View style={styles.modalBackground}>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalHeader}>Select Availability</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setAvailability("Available");
+                  toggleTypeModal();
+                }}
+              >
+                <Text style={styles.modalOption}>Available</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setAvailability("Booked");
+                  toggleTypeModal();
+                }}
+              >
+                <Text style={styles.modalOption}>Booked</Text>
+              </TouchableOpacity>
+              <Button title="Cancel" onPress={toggleTypeModal} />
+            </View>
+          </View>
+        </Modal>
+
+        {/* Bottom Button */}
+        <View style={styles.bottomButtonsContainer}>
+          <TouchableOpacity
+            style={[styles.doneButton, { opacity: isFormValid ? 1 : 0.5 }]}
+            onPress={() => {
+              if (isFormValid) {
+                Alert.alert(
+                  "Property Added",
+                  "Your property has been added successfully!",
+                  [
+                    {
+                      text: "OK",
+                      onPress: () => {
+                        // Navigate to the home screen
+                        navigation.navigate("TenantHome");
+                      },
+                    },
+                  ]
+                );
+              } else {
+                Alert.alert("Please fill in all required fields.");
+              }
+            }}
+            disabled={!isFormValid} // Until all details are filled
+          >
+            <Text style={styles.buttonText}>Done</Text>
+          </TouchableOpacity>
+        </View>
+
+        <BottomNavigation navigation={navigation} />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -184,6 +218,9 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: "#f5f5f5",
+  },
+  container: {
+    flex: 1,
   },
   header: {
     height: 90,
@@ -248,7 +285,6 @@ const styles = StyleSheet.create({
     color: "#555",
     flex: 1,
   },
-
   bottomButtonsContainer: {
     flexDirection: "row",
     justifyContent: "center",
@@ -257,8 +293,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   doneButton: {
-    position: "relative",
-    bottom: 60,
+    position: "absolute",
+    bottom: 20,
     backgroundColor: "#6A8DB5",
     paddingVertical: 10,
     paddingHorizontal: 30,
@@ -266,7 +302,6 @@ const styles = StyleSheet.create({
     width: "40%",
     alignItems: "center",
   },
-
   buttonText: {
     color: "#FFFFFF",
     fontSize: 14,
