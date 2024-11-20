@@ -13,9 +13,7 @@ import BottomNavigation from "../../Components/BottomNavigation";
 
 const ProfileScreen = ({ navigation }) => {
   const [profileData, setProfileData] = useState({
-    name: "czsdczx",
-    age: "21",
-    gender: "Female",
+    name: "Abcdef",
     profilePicture:
       "https://i.pinimg.com/originals/81/46/3e/81463e00329f9f7ea644de094abbb772.jpg",
   });
@@ -42,10 +40,6 @@ const ProfileScreen = ({ navigation }) => {
         profilePicture: result.uri,
       }));
     }
-  };
-
-  const handleEditProfile = () => {
-    navigation.navigate("EditProfile");
   };
 
   const handleSettings = () => {
@@ -92,24 +86,9 @@ const ProfileScreen = ({ navigation }) => {
             <Text style={styles.uploadText}>Edit Picture</Text>
           </TouchableOpacity>
           <Text style={styles.username}>{profileData.name}</Text>
-          <Text style={styles.details}>
-            {profileData.age} | {profileData.gender}
-          </Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>ACCOUNT</Text>
-          <TouchableOpacity style={styles.option} onPress={handleEditProfile}>
-            <View style={styles.optionContent}>
-              <Icon
-                name="pencil-outline"
-                size={20}
-                color="#333"
-                style={styles.icon}
-              />
-              <Text style={styles.optionText}>Edit Profile</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={handleSettings}>
             <View style={styles.optionContent}>
               <Icon
@@ -150,7 +129,7 @@ const ProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#dde5efss",
   },
   header: {
     height: 90,
@@ -199,15 +178,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  details: {
-    marginTop: 4,
-    fontSize: 14,
-    color: "#666",
-  },
   section: {
     marginTop: 20,
     width: "100%",
-    backgroundColor: "#E7EFFB",
+    backgroundColor: "#FFFFFF",
     borderRadius: 10,
     padding: 10,
   },

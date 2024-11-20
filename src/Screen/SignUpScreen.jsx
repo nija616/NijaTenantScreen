@@ -5,9 +5,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Platform,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
 
 const SignUpScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState("");
@@ -15,13 +13,7 @@ const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("");
   const [errors, setErrors] = useState({});
-
-  const roles = [
-    { label: "Landlord", value: "landlord" },
-    { label: "Tenant", value: "tenant" },
-  ];
 
   const handleSignUp = () => {
     let newErrors = {};
@@ -32,7 +24,10 @@ const SignUpScreen = ({ navigation }) => {
     if (!password) newErrors.password = "Please fill out this form";
     if (!confirmPassword)
       newErrors.confirmPassword = "Please fill out this form";
-    if (!role) newErrors.role = "Please fill out this form";
+
+    if (password && confirmPassword && password !== confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+    }
 
     setErrors(newErrors);
 
@@ -90,37 +85,6 @@ const SignUpScreen = ({ navigation }) => {
         <Text style={styles.error}>{errors.confirmPassword}</Text>
       )}
 
-      <View style={styles.pickerWrapper}>
-        <RNPickerSelect
-          onValueChange={(value) => setRole(value)}
-          items={roles}
-          placeholder={{
-            label: "Select your Role",
-            value: null,
-            color: "#9EA0A4",
-          }}
-          style={pickerSelectStyles}
-          useNativeAndroidPickerStyle={false}
-          Icon={() => (
-            <View
-              style={{
-                backgroundColor: "transparent",
-                borderTopWidth: 5,
-                borderTopColor: "#2D5DA7",
-                borderRightWidth: 5,
-                borderRightColor: "transparent",
-                borderLeftWidth: 5,
-                borderLeftColor: "transparent",
-                width: 0,
-                height: 0,
-                marginTop: Platform.OS === "android" ? 5 : 20,
-              }}
-            />
-          )}
-        />
-      </View>
-      {errors.role && <Text style={styles.error}>{errors.role}</Text>}
-
       <TouchableOpacity style={styles.signupButton} onPress={handleSignUp}>
         <Text style={styles.signupButtonText}>Sign Up</Text>
       </TouchableOpacity>
@@ -156,21 +120,12 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    padding: 10,
+    padding: 15,
     borderColor: "#2D5DA7",
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 15,
     backgroundColor: "#fff",
-  },
-  pickerWrapper: {
-    width: "100%",
-    borderColor: "#2D5DA7",
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 15,
-    backgroundColor: "#fff",
-    zIndex: 10, // Set a higher zIndex
   },
   signupButton: {
     width: "60%",
@@ -195,27 +150,6 @@ const styles = StyleSheet.create({
     color: "red",
     alignSelf: "flex-start",
     marginBottom: 15,
-  },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    color: "#2D5DA7",
-    paddingRight: 30, // To ensure the text is not behind the icon
-  },
-  inputIOS: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    color: "#2D5DA7",
-    paddingRight: 30, // To ensure the text is not behind the icon
-  },
-  iconContainer: {
-    top: Platform.OS === "android" ? 10 : 15,
-    right: 10,
   },
 });
 

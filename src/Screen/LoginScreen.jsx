@@ -5,20 +5,12 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Platform,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
 
 const LoginScreen = ({ navigation }) => {
   const [phoneEmail, setPhoneEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [selectedRole, setSelectedRole] = useState("");
   const [errors, setErrors] = useState({});
-
-  const roles = [
-    { label: "Landlord", value: "landlord" },
-    { label: "Tenant", value: "tenant" },
-  ];
 
   const validateEmailOrPhone = (input) => {
     const emailRegex = /^\S+@\S+\.\S+$/;
@@ -41,21 +33,15 @@ const LoginScreen = ({ navigation }) => {
       newErrors.password = "Password must be at least 6 characters";
     }
 
-    if (!selectedRole) newErrors.selectedRole = "Please fill out this form";
-
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
       console.log("Email/Phone:", phoneEmail);
       console.log("Password:", password);
-      console.log("Role:", selectedRole);
       console.log("Logging in...");
 
-      if (selectedRole === "tenant") {
-        navigation.navigate("TenantHome");
-      } else if (selectedRole === "landlord") {
-        navigation.navigate("LandlordHome");
-      }
+      // Navigate to appropriate screen (update as needed)
+      navigation.navigate("TenantHome");
     }
   };
 
@@ -83,40 +69,6 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={setPassword}
       />
       {errors.password && <Text style={styles.error}>{errors.password}</Text>}
-
-      <Text style={styles.label}>Select Role</Text>
-      <View style={styles.pickerWrapper}>
-        <RNPickerSelect
-          onValueChange={(value) => setSelectedRole(value)}
-          items={roles}
-          placeholder={{
-            label: "Select your Role",
-            value: null,
-            color: "#9EA0A4",
-          }}
-          style={pickerSelectStyles}
-          useNativeAndroidPickerStyle={false}
-          Icon={() => (
-            <View
-              style={{
-                backgroundColor: "transparent",
-                borderTopWidth: 5,
-                borderTopColor: "#2D5DA7",
-                borderRightWidth: 5,
-                borderRightColor: "transparent",
-                borderLeftWidth: 5,
-                borderLeftColor: "transparent",
-                width: 0,
-                height: 0,
-              }}
-            />
-          )}
-        />
-      </View>
-
-      {errors.selectedRole && (
-        <Text style={styles.error}>{errors.selectedRole}</Text>
-      )}
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
@@ -172,14 +124,6 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: "#fff",
   },
-  pickerWrapper: {
-    width: "100%",
-    borderColor: "#2D5DA7",
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 40,
-    backgroundColor: "#fff",
-  },
   error: {
     color: "red",
     alignSelf: "flex-start",
@@ -203,29 +147,6 @@ export const styles = StyleSheet.create({
   link: {
     color: "#2D5DA7",
     fontWeight: "bold",
-  },
-});
-
-export const pickerSelectStyles = StyleSheet.create({
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    color: "#2D5DA7",
-    paddingRight: 30,
-  },
-  inputIOS: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    color: "#2D5DA7",
-    paddingRight: 30,
-  },
-  iconContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-    right: 20,
   },
 });
 

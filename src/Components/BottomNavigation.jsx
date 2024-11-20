@@ -48,6 +48,20 @@ const BottomNavigation = () => {
 
       <TouchableOpacity
         style={styles.navButton}
+        onPress={() => navigation.navigate("AddProperty")}
+      >
+        <Icon
+          name="add-circle-outline"
+          size={24}
+          style={{ color: getIconColor("AddProperty") }}
+        />
+        <Text style={[styles.navLabel, { color: getIconColor("AddProperty") }]}>
+          Add Property
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.navButton}
         onPress={() => navigation.navigate("Profile")}
       >
         <Icon

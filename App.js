@@ -12,10 +12,10 @@ import SearchScreen from "./src/Screen/SearchScreen/SearchScreen";
 import ResultsScreen from "./src/Screen/SearchScreen/ResultsScreen";
 import ProfileScreen from "./src/Screen/ProfileScreen/ProfileScreen";
 import AboutUsScreen from "./src/Screen/ProfileScreen/AboutUsScreen";
-import EditProfileScreen from "./src/Screen/ProfileScreen/EditProfileScreen";
+// import EditProfileScreen from "./src/Screen/ProfileScreen/EditProfileScreen";
 import PrivacyPolicyScreen from "./src/Screen/ProfileScreen/PrivacyPolicyScreen";
 import SettingsScreen from "./src/Screen/ProfileScreen/SettingsScreen";
-
+import AddPropertyScreen from "./src/AddPropertyScreen/AddPropertyScreen";
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -73,11 +73,11 @@ const App = () => {
           component={ProfileScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="EditProfile"
           component={EditProfileScreen}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="Settings"
           component={SettingsScreen}
@@ -91,6 +91,11 @@ const App = () => {
         <Stack.Screen
           name="PrivacyPolicy"
           component={PrivacyPolicyScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddProperty"
+          component={AddPropertyScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
